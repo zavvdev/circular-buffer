@@ -179,4 +179,16 @@ describe("CircularBuffer", () => {
     buffer.moveForward();
     expect(buffer.get()).toBe(3);
   });
+
+  test("should clear the buffer correctly", () => {
+    var buffer = new CircularBuffer(3, "number");
+    buffer.commit(1);
+    buffer.commit(2);
+    buffer.commit(3);
+    expect(buffer.get()).toBe(3);
+    buffer.clear();
+    expect(() => buffer.get()).toThrow();
+    buffer.commit(4);
+    expect(buffer.get()).toBe(4);
+  });
 });

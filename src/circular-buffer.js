@@ -139,4 +139,11 @@ CircularBuffer.prototype.moveForward = function() {
   return self.buffer[self.pointer % capacity];
 };
 
+CircularBuffer.prototype.clear = function() {
+  var self = STATE.get(this);
+  self.usedSlots = DEFAULT_USED_SLOTS;
+  self.pointer = DEFAULT_POINTER;
+  self.buffer = new Array(self.capacity);
+};
+
 export { CircularBuffer };
