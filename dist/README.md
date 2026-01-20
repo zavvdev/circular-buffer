@@ -1,6 +1,6 @@
 # Circular History
 
-Data structure that holds a fixed amount of items of a specific data type. It's designed more for managing history, such as undo-redo functionality, therefore it allows you to overwrite the items after moving backward in order to discard the "redo" history.
+Data structure with a fixed number of items of a specific type. Supports adding elements, moving backward and forward with wrapping. Suitable for undo/redo implementations such as history management.
 
 ## Usage
 
