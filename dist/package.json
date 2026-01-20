@@ -1,0 +1,21 @@
+{
+  "name": "circular-history",
+  "type": "module",
+  "version": "1.0.2",
+  "description": "Data structure with a fixed number of items of a specific type. Supports adding elements, moving backward and forward with wrapping. Suitable for undo/redo implementations such as history management.",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zavvdev/circular-history"
+  },
+  "keywords": [
+    "javascript",
+    "data-structures",
+    "circular-buffer",
+    "circular-history",
+    "history-management"
+  ],
+  "author": "Ihor ZAVIRIUKHA <ihor.zaviriukha@protonmail.com>",
+  "license": "MIT"
+}
