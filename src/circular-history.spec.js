@@ -341,4 +341,30 @@ describe("CircularHistory", () => {
     expect(buffer.commit(20)).toBe(20);
     expect(buffer.commit(30)).toBe(30);
   });
+
+  test("should still commit to the first slot after multiple back moves", () => {
+    var buffer = new CircularHistory(3, "number");
+    buffer.moveBackward();
+    buffer.moveBackward();
+    buffer.moveBackward();
+    buffer.commit(4);
+    expect(buffer.dump(true)).toEqual([4]);
+    expect(buffer.getCurrentIndex()).toBe(0);
+    expect(buffer.get()).toBe(4);
+  });
+
+  test("should still commit to the last available slot after multiple forward moves", () => {
+    var buffer = new CircularHistory(3, "number");
+    buffer.moveForward();
+    buffer.moveForward();
+    buffer.moveForward();
+    buffer.commit(3);
+    expect(buffer.dump(true)).toEqual([3]);
+    expect(buffer.getCurrentIndex()).toBe(0);
+    buffer.commit(5);
+    expect(buffer.dump(true)).toEqual([3, 5]);
+    buffer.moveForward();
+    buffer.moveForward();
+    expect(buffer.get()).toBe(5);
+  });
 });
