@@ -83,3 +83,43 @@ var isAtEnd = history.isEndReached();
 1. `pnpm install`
 
 2. `pnpm test`
+
+## Usage example
+
+Imagine that you have a drawing application. You have a layer where you can draw
+shapes and you can create a snapshot of the layer's state to keep track of changes.
+
+```javascript
+var history = new CircularHistory(50, "string");
+
+function commitHistorySnapshot() {
+  const snapshot = drawLayer.toJSON();
+  if (!snapshot) return;
+  history.commit(snapshot);
+}
+
+function restoreHistorySnapshot(snapshot) {
+  if (!snapshot) return;
+
+  if (snapshot === CircularHistory.FLAGS.empty) {
+    drawLayer.clear();
+    drawLayer.redraw();
+    return;
+  }
+
+  drawLayer.unmount();
+
+  const restoredLayer = new Layer(snapshot);
+  drawLayer = restoredLayer;
+
+  restoredLayer.redraw();
+}
+
+function undo() {
+  restoreHistorySnapshot(history.moveBackward());
+}
+
+function redo() {
+  restoreHistorySnapshot(history.moveForward());
+}
+```
