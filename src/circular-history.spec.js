@@ -473,4 +473,34 @@ describe("CircularHistory", () => {
     history.moveForward();
     expect(history.current()).toBe(CircularHistory.FLAGS.empty);
   });
+
+  test("should discard prev changes even if they phisically live behind of pointer", () => {
+    var history = new CircularHistory(3, "number");
+    history.commit(1);
+    history.commit(2);
+    history.commit(3);
+    history.commit(4);
+    expect(history.dump(true)).toEqual([4, 2, 3]);
+    history.moveBackward();
+    history.moveBackward();
+    history.moveBackward();
+    expect(history.current()).toBe(2);
+    history.commit(5);
+    expect(history.dump(true)).toEqual([4, 2, 5]);
+    history.moveBackward();
+    expect(history.current()).toBe(2);
+    history.moveBackward();
+    expect(history.current()).toBe(2);
+    history.moveBackward();
+    expect(history.current()).toBe(2);
+    history.commit(6);
+    history.commit(7);
+    expect(history.dump(true)).toEqual([7, 2, 6]);
+    history.moveBackward();
+    expect(history.current()).toBe(6);
+    history.moveBackward();
+    expect(history.current()).toBe(2);
+    history.moveBackward();
+    expect(history.current()).toBe(2);
+  });
 });

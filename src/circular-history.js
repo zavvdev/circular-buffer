@@ -121,11 +121,11 @@ CircularHistory.prototype.commit = function (value) {
 
   var capacity = self.capacity;
 
-  if (self.navigationUpperBound >= capacity - 1) {
+  if (self.navigatedItemsCount === capacity - 1) {
     self.navigationUpperBound = capacity - 1;
     self.navigatedItemsCount = capacity - 1;
   } else {
-    self.navigatedItemsCount = ++self.navigationUpperBound;
+    self.navigationUpperBound = ++self.navigatedItemsCount;
   }
 
   self.buffer[makeIndex(++self.pointer, capacity)] = value;
